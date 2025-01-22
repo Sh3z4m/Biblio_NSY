@@ -9,3 +9,8 @@ import sqlite3
 @app.route('/')
 def hello_world():
     return render_template('hello.html')
+
+
+# Tout avant cette ligne !
+if __name__ == "__main__":
+  app.run(debug=True)
