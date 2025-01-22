@@ -18,7 +18,7 @@ def all_books():
     return render_template('display_all.html', data=data)
 
 # Afficher tous les livres
-@app.route('/emprunter/')
+@app.route('/enregistrer/')
 def emprunter():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
