@@ -20,13 +20,12 @@ def all_books():
 # Afficher tous les livres
 @app.route('/enregistrer/')
 def emprunter():
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM livres;')
-    data = cursor.fetchall()
-    conn.close()
     return render_template('enregistrer_2.html', data=data)
 
+# Afficher tous les livres
+@app.route('/rechercher/')
+def rechercher():
+    return render_template('rechercher.html', data=data)
 
 # Tout avant cette ligne !
 if __name__ == "__main__":
