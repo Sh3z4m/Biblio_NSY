@@ -10,7 +10,7 @@ app = Flask(__name__)
 # Page accueil
 @app.route('/')
 def hello_world():
-    return render_template('hello.html')
+    return render_template('display_all.html')
 
 
 # Tout avant cette ligne !
