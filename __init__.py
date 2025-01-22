@@ -20,12 +20,12 @@ def all_books():
 # Afficher tous les livres
 @app.route('/enregistrer/')
 def emprunter():
-    return render_template('enregistrer_2.html', data=data)
+    return render_template('enregistrer_2.html')
 
 # Afficher tous les livres
 @app.route('/rechercher/')
 def rechercher():
-    return render_template('rechercher.html', data=data)
+    return render_template('rechercher.html')
 
 # Tout avant cette ligne !
 if __name__ == "__main__":
