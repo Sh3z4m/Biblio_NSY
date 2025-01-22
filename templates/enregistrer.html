@@ -5,22 +5,32 @@
     <title>Clients</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
+        /* Général */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
         }
+
+        /* Grille principale */
+        .grid-container {
+            display: grid;
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 1fr;
+            height: 100vh;
+        }
+
+        /* Menu */
         nav {
             width: 100%;
             background-color: white;
-            position: sticky;
-            top: 0;
+            border-bottom: 1px solid #ddd;
         }
         nav ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
-            display: flex; /* Utilise Flexbox pour une disposition horizontale propre */
-            justify-content: space-evenly; /* Répartit les éléments du menu uniformément */
+            display: flex;
+            justify-content: space-evenly;
             align-items: center;
         }
         nav li {
@@ -38,17 +48,21 @@
             color: purple;
             border-bottom: 2px solid purple;
         }
+
+        /* Contenu principal */
         main {
-            margin: 20px auto;
-            width: 80%;
+            padding: 20px;
+            overflow-y: auto;
         }
+
+        /* Formulaire */
         .form-container {
             background: #fff;
             padding: 20px 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             max-width: 400px;
-            margin: 20px auto;
+            margin: 0 auto 40px auto;
         }
         .form-container h1 {
             text-align: center;
@@ -89,10 +103,13 @@
         .btn-submit:hover {
             background-color: #0056b3;
         }
+
+        /* Tableau */
         table {
-            margin: 20px auto;
+            margin: 0 auto;
             border-collapse: collapse;
             width: 100%;
+            max-width: 800px;
             text-align: center;
             border: 1px solid;
         }
@@ -106,72 +123,74 @@
     </style>
 </head>
 <body>
-    <!-- Menu -->
-    <nav>
-        <ul>
-            <li><a href="/"><img src="https://static.vecteezy.com/system/resources/previews/001/200/145/non_2x/books-png.png" height="50"></a></li>
-            <li><a href="/enregistrer/">Enregistrer</a></li>
-            <li><a href="#">Emprunter</a></li>
-            <li><a href="#">Rechercher</a></li>
-            <li><a href="#">Stocks</a></li>
-            <li><a href="#">Utilisateurs</a></li>
-        </ul>
-    </nav>
+    <div class="grid-container">
+        <!-- Menu -->
+        <nav>
+            <ul>
+                <li><a href="/"><img src="https://static.vecteezy.com/system/resources/previews/001/200/145/non_2x/books-png.png" height="50"></a></li>
+                <li><a href="/enregistrer/">Enregistrer</a></li>
+                <li><a href="#">Emprunter</a></li>
+                <li><a href="#">Rechercher</a></li>
+                <li><a href="#">Stocks</a></li>
+                <li><a href="#">Utilisateurs</a></li>
+            </ul>
+        </nav>
 
-    <!-- Contenu principal -->
-    <main>
-        <div class="form-container">
-            <h1>Ajouter un livre</h1>
-            <form action="enregistrer_livre.php" method="post">
-                <div class="form-group">
-                    <label for="id">ID</label>
-                    <input type="text" id="id" name="id" required>
-                </div>
-                <div class="form-group">
-                    <label for="titre">Titre</label>
-                    <input type="text" id="titre" name="titre" required>
-                </div>
-                <div class="form-group">
-                    <label for="auteur">Auteur</label>
-                    <input type="text" id="auteur" name="auteur" required>
-                </div>
-                <div class="form-group">
-                    <label for="annee">Année</label>
-                    <input type="number" id="annee" name="annee" required>
-                </div>
-                <div class="form-group">
-                    <label for="genre">Genre</label>
-                    <input type="text" id="genre" name="genre" required>
-                </div>
-                <div class="form-group">
-                    <label for="isbn">ISBN</label>
-                    <input type="text" id="isbn" name="isbn" required>
-                </div>
-                <button type="submit" class="btn-submit">Enregistrer</button>
-            </form>
-        </div>
+        <!-- Contenu principal -->
+        <main>
+            <div class="form-container">
+                <h1>Ajouter un livre</h1>
+                <form action="enregistrer_livre.php" method="post">
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <input type="text" id="id" name="id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="titre">Titre</label>
+                        <input type="text" id="titre" name="titre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="auteur">Auteur</label>
+                        <input type="text" id="auteur" name="auteur" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="annee">Année</label>
+                        <input type="number" id="annee" name="annee" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">Genre</label>
+                        <input type="text" id="genre" name="genre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="isbn">ISBN</label>
+                        <input type="text" id="isbn" name="isbn" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Enregistrer</button>
+                </form>
+            </div>
 
-        <h1>Liste des livres de la base</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Titre</th>
-                <th>Auteur</th>
-                <th>Année</th>
-                <th>Genre</th>
-                <th>ISBN</th>
-            </tr>
-            {% for row in data %}
-            <tr>
-                <td>{{ row[0] }}</td>
-                <td>{{ row[1] }}</td>
-                <td>{{ row[2] }}</td>
-                <td>{{ row[3] }}</td>
-                <td>{{ row[4] }}</td>
-                <td>{{ row[5] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </main>
+            <h1>Liste des livres de la base</h1>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Année</th>
+                    <th>Genre</th>
+                    <th>ISBN</th>
+                </tr>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </main>
+    </div>
 </body>
 </html>
