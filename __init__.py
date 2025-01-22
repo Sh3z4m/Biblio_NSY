@@ -17,6 +17,16 @@ def all_books():
     conn.close()
     return render_template('display_all.html', data=data)
 
+# Afficher tous les livres
+@app.route('/')
+def emprunter():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM livres;')
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('emprunter.html', data=data)
+
 
 # Tout avant cette ligne !
 if __name__ == "__main__":
