@@ -5,6 +5,8 @@ from urllib.request import urlopen
 from werkzeug.utils import secure_filename
 import sqlite3
 
+app = Flask(__name__)                                                                                                                  
+
 # Page accueil
 @app.route('/')
 def hello_world():
