@@ -7,10 +7,15 @@ import sqlite3
 
 app = Flask(__name__)                                                                                                                  
 
-# Page accueil
+# Afficher tous les livres
 @app.route('/')
-def hello_world():
-    return render_template('display_all.html')
+def all_books():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM livres;')
+    data = cursor.fetchall()
+    conn.close()
+    return render_template('display_all.html', data=data)
 
 
 # Tout avant cette ligne !
