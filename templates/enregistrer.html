@@ -1,62 +1,94 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Clients</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
 <body>
+    <center>
+        {% include 'menu.html' %}
+        <main>
+            {% block content %}{% endblock %}
+            <div class="form-container">
+                <h1>Ajouter un livre</h1>
+                <form action="enregistrer_livre.php" method="post">
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <input type="text" id="id" name="id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="titre">Titre</label>
+                        <input type="text" id="titre" name="titre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="auteur">Auteur</label>
+                        <input type="text" id="auteur" name="auteur" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="annee">Année</label>
+                        <input type="number" id="annee" name="annee" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">Genre</label>
+                        <input type="text" id="genre" name="genre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="isbn">ISBN</label>
+                        <input type="text" id="isbn" name="isbn" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Enregistrer</button>
+                </form>
+            </div>
 
-    {% include 'menu.html' %}
-    <main>
-    {% block content %}{% endblock %}
-    </main>
-<center>    
-    <h1>Enregistrer un livre dans la base</h1>
-
-        <h1>Ajouter un livre</h1>
-        <form action="enregistrer_livre.php" method="post">
-            <div class="form-group">
-                <label for="id">ID</label>
-                <input type="text" id="id" name="id" required>
-            </div>
-            <div class="form-group">
-                <label for="titre">Titre</label>
-                <input type="text" id="titre" name="titre" required>
-            </div>
-            <div class="form-group">
-                <label for="auteur">Auteur</label>
-                <input type="text" id="auteur" name="auteur" required>
-            </div>
-            <div class="form-group">
-                <label for="annee">Année</label>
-                <input type="number" id="annee" name="annee" required>
-            </div>
-            <div class="form-group">
-                <label for="genre">Genre</label>
-                <input type="text" id="genre" name="genre" required>
-            </div>
-            <div class="form-group">
-                <label for="isbn">ISBN</label>
-                <input type="text" id="isbn" name="isbn" required>
-            </div>
-            <button type="submit" class="btn-submit">Enregistrer</button>
-        </form>
-    </div>
-    
-        </center>
-
+            <h1>Liste des livres de la base</h1>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Année</th>
+                    <th>Genre</th>
+                    <th>ISBN</th>
+                </tr>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </main>
+    </center>
 </body>
 </html>
 
-    <style>
-/*         .form-group {
+ <style>
+        .form-container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        .form-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
             margin-bottom: 15px;
         }
         .form-group label {
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
-        } */
+        }
         .form-group input {
             width: 100%;
             padding: 10px;
@@ -82,5 +114,19 @@
         }
         .btn-submit:hover {
             background-color: #0056b3;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+            text-align: center;
+            border: 1px solid;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f4f4f4;
         }
     </style>
