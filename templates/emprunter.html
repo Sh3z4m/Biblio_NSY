@@ -1,0 +1,38 @@
+<!DOCTYPE>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Clients</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body><center>
+
+    {% include 'menu.html' %}
+    <main>
+    {% block content %}{% endblock %}
+    </main>
+    
+    <h1>Enregistrer un livre dans la base</h1>
+    <table style='width:80%;border: 1px solid;text-align:center'>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Année</th>
+            <th>Genre</th>
+            <th>ISBN</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+            <td>{{ row[5] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+        </center>
+
+</body>
+</html>
