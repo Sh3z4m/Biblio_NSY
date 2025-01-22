@@ -25,7 +25,7 @@ def emprunter():
     cursor.execute('SELECT * FROM livres;')
     data = cursor.fetchall()
     conn.close()
-    return render_template('emprunter.html', data=data)
+    return render_template('enregistrer_2.html', data=data)
 
 
 # Tout avant cette ligne !
