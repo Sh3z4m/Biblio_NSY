@@ -12,7 +12,8 @@
     </main>
     
     <h1>Enregistrer un livre dans la base</h1>
-    <div class="form-container">
+
+<div class="form-container">
         <h1>Ajouter un livre</h1>
         <form action="enregistrer_livre.php" method="post">
             <div class="form-group">
@@ -42,13 +43,24 @@
             <button type="submit" class="btn-submit">Enregistrer</button>
         </form>
     </div>
+    
         </center>
 
 </body>
 </html>
 
     <style>
-
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
         .form-container {
             background: #fff;
             padding: 20px 30px;
@@ -56,6 +68,8 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             width: 100%;
+            position: relative; /* S'assure que le formulaire reste isolé */
+            z-index: 1; /* Priorité visuelle au formulaire */
         }
         .form-container h1 {
             text-align: center;
