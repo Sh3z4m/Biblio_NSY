@@ -1,0 +1,15 @@
+<!DOCTYPE>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Clients</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body><center>
+
+    {% include 'menu.html' %}
+    <main>
+    {% block content %}{% endblock %}
+    </main>
+
+
+  <p>{{ message }}</p>
