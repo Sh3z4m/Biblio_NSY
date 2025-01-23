@@ -18,31 +18,46 @@ def all_books():
     return render_template('display_all.html', data=data)
 
 # Emprunter
+from flask import Flask, request, render_template
+import sqlite3
+
+app = Flask(__name__)
+
 @app.route('/emprunt', methods=['POST'])
 def emprunt():
-    # Récupération de l'ISBN envoyé par le formulaire
-    isbn = request.form['emprunt']
-    # Connexion à la base de données
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-    # Vérification si le livre avec cet ISBN existe et récupération du stock
-    cursor.execute('SELECT nbre_exemplaires FROM livres WHERE isbn = ?', (isbn,))
-    livre = cursor.fetchone()
-    if livre:
-        nbre_exemplaires = livre[0]
-        if nbre_exemplaires > 0:
-            # Mise à jour : réduction du stock de 1
-            cursor.execute('UPDATE livres SET nbre_exemplaires = nbre_exemplaires - 1 WHERE isbn = ?', (isbn,))
-            conn.commit()
-            message = f"Livre avec ISBN {isbn} emprunté avec succès."
+    try:
+        # Récupération de l'ISBN depuis le formulaire
+        isbn = request.form.get('emprunt', None)
+        if not isbn:
+            return render_template('result.html', message="ISBN non fourni dans le formulaire.")
+        
+        # Connexion à la base de données
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+
+        # Vérification si le livre existe
+        cursor.execute('SELECT nbre_exemplaires FROM livres WHERE isbn = ?', (isbn,))
+        livre = cursor.fetchone()
+
+        if livre:
+            nbre_exemplaires = livre[0]
+            if nbre_exemplaires > 0:
+                # Mise à jour du stock
+                cursor.execute('UPDATE livres SET nbre_exemplaires = nbre_exemplaires - 1 WHERE isbn = ?', (isbn,))
+                conn.commit()
+                message = f"Livre avec ISBN {isbn} emprunté avec succès."
+            else:
+                message = f"Aucun exemplaire disponible pour l'ISBN {isbn}."
         else:
-            message = f"Aucun exemplaire disponible pour l'ISBN {isbn}."
-    else:
-        message = f"Aucun livre trouvé avec l'ISBN {isbn}."
-    # Fermeture de la connexion
-    conn.close()
-    # Retourne un template ou un message de confirmation
+            message = f"Aucun livre trouvé avec l'ISBN {isbn}."
+    except Exception as e:
+        message = f"Une erreur est survenue : {str(e)}"
+    finally:
+        conn.close()
+
+    # Retourne le template avec le message
     return render_template('result.html', message=message)
+
 
 # Afficher tous les livres
 @app.route('/enregistrer/')
