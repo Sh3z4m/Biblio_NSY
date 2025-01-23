@@ -50,6 +50,25 @@ def emprunt():
     # Retourne le template avec le message
     return render_template('display_all.html', message=message)
 
+# Suppression des livres
+# Emprunter
+@app.route('/', methods=['POST'])
+def suppression():
+    try:
+        # Récupération de l'ISBN depuis le formulaire
+        isbn = request.form.get('suppression', None)
+        if not isbn:
+            return render_template('result.html', message="ISBN non fourni dans le formulaire.")      
+        # Connexion à la base de données
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        # Vérification si le livre existe
+        cursor.execute('DELETE FROM livres WHERE isbn = ?', (isbn,))
+        conn.close()
+        message = f"<p style='color:green'>Livre avec ISBN {isbn} <b>supprimé</b> avec succès.</p>"
+
+    # Retourne le template avec le message
+    return render_template('display_all.html', message=message)
 
 # Afficher tous les livres
 @app.route('/enregistrer/')
