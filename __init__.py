@@ -52,7 +52,7 @@ def emprunt():
 
 # Suppression des livres
 # Emprunter
-@app.route('/', methods=['POST'])
+@app.route('/suppression', methods=['POST'])
 def suppression():
     try:
         # Récupération de l'ISBN depuis le formulaire
