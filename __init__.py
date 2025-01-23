@@ -50,7 +50,7 @@ def emprunt():
     # Retourne le template avec le message
     return render_template('display_all_2.html', message=message)
 
-@app.route('/suppression/', methods=['POST'])
+@app.route('/suppression', methods=['POST'])
 def suppressionlivre():
     try:
         # Récupération de l'ISBN depuis le formulaire
