@@ -21,7 +21,7 @@ def all_books():
 @app.route('/emprunt', methods=['POST'])
 def emprunt():
     # Récupération de l'ISBN envoyé par le formulaire
-    isbn = request.form['isbn']
+    isbn = request.form['emprunt']
     # Connexion à la base de données
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
