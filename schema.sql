@@ -5,7 +5,8 @@ CREATE TABLE Livres (
     auteur VARCHAR(255) NOT NULL,
     annee_publication YEAR,
     genre VARCHAR(100),
-    isbn VARCHAR(20) UNIQUE
+    isbn VARCHAR(20) UNIQUE,
+    nbre_exemplaires VARCHAR(2) NOT NULL,
 );
 
 -- Table pour les utilisateurs
@@ -17,13 +18,6 @@ CREATE TABLE Utilisateurs (
     date_inscription DATE DEFAULT CURRENT_DATE
 );
 
--- Table pour les stocks
-CREATE TABLE Stocks (
-    id_stock INT AUTO_INCREMENT PRIMARY KEY,
-    id_livre INT NOT NULL,
-    quantite_disponible INT DEFAULT 0,
-    FOREIGN KEY (id_livre) REFERENCES Livres(id_livre) ON DELETE CASCADE
-);
 
 -- Table pour les emprunts
 CREATE TABLE Emprunts (
@@ -36,12 +30,3 @@ CREATE TABLE Emprunts (
     FOREIGN KEY (id_utilisateur) REFERENCES Utilisateurs(id_utilisateur) ON DELETE CASCADE,
     FOREIGN KEY (id_livre) REFERENCES Livres(id_livre) ON DELETE CASCADE
 );
-
--- Index pour faciliter la recherche de livres disponibles
-CREATE INDEX idx_livres_disponibles ON Stocks (id_livre, quantite_disponible);
-
--- Exemple de recherche de livres disponibles
--- SELECT l.titre, l.auteur, s.quantite_disponible
--- FROM Livres l
--- JOIN Stocks s ON l.id_livre = s.id_livre
--- WHERE s.quantite_disponible > 0;
