@@ -53,8 +53,29 @@ def emprunt():
 
 # Afficher tous les livres
 @app.route('/enregistrer/')
-def emprunter():
+def enregistrer():
     return render_template('enregistrer_2.html')
+
+# Afficher tous les livres
+@app.route('/enregistrer/', methods=['POST'])
+def enregistrer_post():
+    exemplaires = request.form['exemplaires']
+    titre = request.form['titre']
+    auteur = request.form['auteur']
+    annee = request.form['annee']
+    genre = request.form['genre']
+    isbn = request.form['isbn']
+
+
+    # Connexion à la base de données
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    # Exécution de la requête SQL pour insérer un nouveau client
+    cursor.execute('INSERT INTO livres (titre, auteur, annee_publication, genre, isbn, nbre_exemplaires) VALUES (?, ?, ?, ?, ?, ?)', (titre, auteur, annee, genre, isbn, exemplaires))
+    conn.commit()
+    conn.close()
+    return redirect('/')  # Rediriger vers la page d'accueil après l'enregistrement
 
 # Afficher tous les livres
 @app.route('/rechercher/')
