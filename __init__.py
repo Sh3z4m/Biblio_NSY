@@ -18,10 +18,10 @@ def all_books():
     return render_template('display_all.html', data=data)
 
 # Emprunter
-@app.route('/', methods=['POST'])
+@app.route('/emprunt', methods=['POST'])
 def emprunt():
     # Récupération de l'ISBN envoyé par le formulaire
-    isbn = request.form['emprunt']
+    isbn = request.form['isbn']
     # Connexion à la base de données
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
@@ -39,12 +39,10 @@ def emprunt():
             message = f"Aucun exemplaire disponible pour l'ISBN {isbn}."
     else:
         message = f"Aucun livre trouvé avec l'ISBN {isbn}."
-
     # Fermeture de la connexion
     conn.close()
-
     # Retourne un template ou un message de confirmation
-    return render_template('display_all.html', message=message)
+    return render_template('result.html', message=message)
 
 # Afficher tous les livres
 @app.route('/enregistrer/')
