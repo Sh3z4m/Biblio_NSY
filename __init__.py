@@ -28,26 +28,23 @@ def emprunt():
     # Vérification si le livre avec cet ISBN existe et récupération du stock
     cursor.execute('SELECT nbre_exemplaires FROM livres WHERE isbn = ?', (isbn,))
     livre = cursor.fetchone()
-    # if livre:
-    #     nombre_de_livres = livre[0]
-    #     if nombre_de_livres > 0:
-    #         # Mise à jour : réduction du stock de 1
-    #         cursor.execute('UPDATE livres SET nombre_de_livres = nombre_de_livres - 1 WHERE isbn = ?', (isbn,))
-    #         conn.commit()
-    #         message = f"Livre avec ISBN {isbn} emprunté avec succès."
-    #     else:
-    #         message = f"Aucun exemplaire disponible pour l'ISBN {isbn}."
-    # else:
-    #     message = f"Aucun livre trouvé avec l'ISBN {isbn}."
+    if livre:
+        nbre_exemplaires = livre[0]
+        if nbre_exemplaires > 0:
+            # Mise à jour : réduction du stock de 1
+            cursor.execute('UPDATE livres SET nbre_exemplaires = nbre_exemplaires - 1 WHERE isbn = ?', (isbn,))
+            conn.commit()
+            message = f"Livre avec ISBN {isbn} emprunté avec succès."
+        else:
+            message = f"Aucun exemplaire disponible pour l'ISBN {isbn}."
+    else:
+        message = f"Aucun livre trouvé avec l'ISBN {isbn}."
 
     # Fermeture de la connexion
-    cursor.execute('UPDATE livres SET nombre_de_livres = nombre_de_livres - 1 WHERE isbn = ?', (isbn,))
-    conn.commit()
-    message = f"Livre avec ISBN {isbn} emprunté avec succès."
     conn.close()
 
     # Retourne un template ou un message de confirmation
-    return render_template('result.html', message=message)
+    return render_template('display_all.html', message=message)
 
 # Afficher tous les livres
 @app.route('/enregistrer/')
