@@ -35,7 +35,7 @@ def emprunt():
         livre = cursor.fetchone()
 
         if livre:
-            nbre_exemplaires = livre[0]
+            nbre_exemplaires = int(livre[0])
             if nbre_exemplaires > 0:
                 # Mise à jour du stock
                 cursor.execute('UPDATE livres SET nbre_exemplaires = nbre_exemplaires - 1 WHERE isbn = ?', (isbn,))
