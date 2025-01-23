@@ -15,7 +15,7 @@ def all_books():
     cursor.execute('SELECT * FROM livres;')
     data = cursor.fetchall()
     conn.close()
-    return render_template('display_all.html', data=data)
+    return render_template('display_all_2.html', data=data)
 
 # Emprunter
 @app.route('/', methods=['POST'])
@@ -48,7 +48,7 @@ def emprunt():
         conn.close()
 
     # Retourne le template avec le message
-    return render_template('display_all.html', message=message)
+    return render_template('display_all_2.html', message=message)
 
 @app.route('/suppression', methods=['POST'])
 def suppressionlivre():
@@ -74,7 +74,7 @@ def suppressionlivre():
         conn.close()
 
     # Retourne le template avec le message
-    return render_template('display_all.html', message=message)
+    return render_template('display_all_2.html', message=message)
 
 # Afficher tous les livres
 @app.route('/enregistrer/')
