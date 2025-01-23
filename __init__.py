@@ -18,22 +18,19 @@ def all_books():
     return render_template('display_all.html', data=data)
 
 # Emprunter
-@app.route('/emprunt', methods=['POST'])
+@app.route('/', methods=['POST'])
 def emprunt():
     try:
         # Récupération de l'ISBN depuis le formulaire
         isbn = request.form.get('emprunt', None)
         if not isbn:
-            return render_template('result.html', message="ISBN non fourni dans le formulaire.")
-        
+            return render_template('result.html', message="ISBN non fourni dans le formulaire.")      
         # Connexion à la base de données
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
-
         # Vérification si le livre existe
         cursor.execute('SELECT nbre_exemplaires FROM livres WHERE isbn = ?', (isbn,))
         livre = cursor.fetchone()
-
         if livre:
             nbre_exemplaires = int(livre[0])
             if nbre_exemplaires > 0:
@@ -51,7 +48,7 @@ def emprunt():
         conn.close()
 
     # Retourne le template avec le message
-    return render_template('result.html', message=message)
+    return render_template('display_all.html', message=message)
 
 
 # Afficher tous les livres
