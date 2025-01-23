@@ -5,7 +5,64 @@ from urllib.request import urlopen
 from werkzeug.utils import secure_filename
 import sqlite3
 
-app = Flask(__name__)                                                                                                                  
+app = Flask(__name__) 
+app.secret_key = 'votre_clé_secrète'
+
+# Connexion à la base de données
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row  # Permet d'accéder aux colonnes par nom
+    return conn
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        
+        # Connexion à la base de données
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # Recherche de l'utilisateur par email
+        cursor.execute("SELECT * FROM Utilisateurs WHERE email = ?", (email,))
+        utilisateur = cursor.fetchone()
+        conn.close()
+        
+        if utilisateur:
+            # Vérification du mot de passe
+            if check_password_hash(utilisateur['mot_de_passe'], password):
+                # Création de la session
+                session['user_id'] = utilisateur['id_utilisateur']
+                session['user_email'] = utilisateur['email']
+                return redirect(url_for('dashboard'))  # Page d'accueil ou tableau de bord
+            else:
+                message = "Mot de passe incorrect."
+        else:
+            message = "Utilisateur non trouvé."
+
+        return render_template('login.html', message=message)
+    
+    return render_template('login.html')
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))  # Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+
+    # Connexion à la base de données pour récupérer des informations utilisateur
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM Utilisateurs WHERE id_utilisateur = ?', (session['user_id'],))
+    utilisateur = cursor.fetchone()
+    conn.close()
+
+    return render_template('dashboard.html', utilisateur=utilisateur)
+
+@app.route('/logout')
+def logout():
+    session.clear()  # Déconnecte l'utilisateur
+    return redirect(url_for('login'))
 
 # Afficher tous les livres
 @app.route('/')
