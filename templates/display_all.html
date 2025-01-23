@@ -30,7 +30,9 @@
             <td>{{ row[3] }}</td>
             <td>{{ row[4] }}</td>
             <td>{{ row[5] }}</td>
-            <td><a href='/emprunt={{ row[5] }}'>Emprunter</a></td>
+            <td><form action="/" method="post">
+    <button type="submit" name="emprunt" value="{{ row[5] }}" class="btn-link">Emprunter</button>
+</form>
         </tr>
         {% endfor %}
     </table>
