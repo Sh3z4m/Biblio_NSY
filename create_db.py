@@ -8,12 +8,12 @@ with open('schema.sql') as f:
 cur = connection.cursor()
 
 # Données pour la table Livres
-cur.execute("INSERT INTO Livres (titre, auteur, annee_publication, genre, isbn) VALUES (?, ?, ?, ?, ?)",
-            ('Le Petit Prince', 'Antoine de Saint-Exupéry', 1943, 'Fiction', '978-3-16-148410-0'))
-cur.execute("INSERT INTO Livres (titre, auteur, annee_publication, genre, isbn) VALUES (?, ?, ?, ?, ?)",
-            ('1984', 'George Orwell', 1949, 'Dystopie', '978-0-452-28423-4'))
-cur.execute("INSERT INTO Livres (titre, auteur, annee_publication, genre, isbn) VALUES (?, ?, ?, ?, ?)",
-            ('Les Misérables', 'Victor Hugo', 1862, 'Classique', '978-0-14-044430-8'))
+cur.execute("INSERT INTO Livres (titre, auteur, annee_publication, genre, isbn, nbre_exemplaires) VALUES (?, ?, ?, ?, ?, ?)",
+            ('Le Petit Prince', 'Antoine de Saint-Exupéry', 1943, 'Fiction', '978-3-16-148410-0', '5'))
+cur.execute("INSERT INTO Livres (titre, auteur, annee_publication, genre, isbn, nbre_exemplaires) VALUES (?, ?, ?, ?, ?, ?)",
+            ('1984', 'George Orwell', 1949, 'Dystopie', '978-0-452-28423-4', '2'))
+cur.execute("INSERT INTO Livres (titre, auteur, annee_publication, genre, isbn, nbre_exemplaires) VALUES (?, ?, ?, ?, ?, ?)",
+            ('Les Misérables', 'Victor Hugo', 1862, 'Classique', '978-0-14-044430-8', '7'))
 
 # Données pour la table Utilisateurs
 cur.execute("INSERT INTO Utilisateurs (nom, prenom, email, date_inscription) VALUES (?, ?, ?, ?)",
