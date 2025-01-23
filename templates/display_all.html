@@ -22,7 +22,8 @@
             <th>Genre</th>
             <th>ISBN</th>
             <th>Exemplaires disponibles</th>
-            <th>Emprunter</th>
+            <th>Emprunt</th>
+            <th>Suppression</th>
         </tr>
         {% for row in data %}
         <tr>
@@ -34,7 +35,9 @@
             <td>{{ row[5] }}</td>
             <td>{{ row[6] }}</td>
             <td><form action="/" method="post">
-    <button type="submit" name="emprunt" value="{{ row[5] }}" class="btn-link">Emprunter</button>
+    <button type="submit" name="emprunt" value="{{ row[5] }}" class="btn-link">Emprunter</button></td>
+                        <td><form action="/" method="post">
+    <button type="submit" name="emprunt" style='color:red' value="{{ row[5] }}" class="btn-link">Suppression</button></td>
 </form>
         </tr>
         {% endfor %}
