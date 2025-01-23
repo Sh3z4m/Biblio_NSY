@@ -23,13 +23,6 @@ cur.execute("INSERT INTO Utilisateurs (nom, prenom, email, date_inscription) VAL
 cur.execute("INSERT INTO Utilisateurs (nom, prenom, email, date_inscription) VALUES (?, ?, ?, ?)",
             ('Durand', 'Sophie', 'sophie.durand@example.com', '2023-03-20'))
 
-# Données pour la table Stocks
-cur.execute("INSERT INTO Stocks (id_livre, quantite_disponible) VALUES (?, ?)",
-            (1, 5))
-cur.execute("INSERT INTO Stocks (id_livre, quantite_disponible) VALUES (?, ?)",
-            (2, 3))
-cur.execute("INSERT INTO Stocks (id_livre, quantite_disponible) VALUES (?, ?)",
-            (3, 2))
 
 # Données pour la table Emprunts
 cur.execute("INSERT INTO Emprunts (id_utilisateur, id_livre, date_emprunt, date_retour_prevue, date_retour_effective) VALUES (?, ?, ?, ?, ?)",
