@@ -15,7 +15,8 @@ CREATE TABLE Utilisateurs (
     nom VARCHAR(100) NOT NULL,
     prenom VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    date_inscription DATE DEFAULT CURRENT_DATE
+    date_inscription DATE DEFAULT CURRENT_DATE,
+    mot_de_passe VARCHAR(255) NOT NULL
 );
 
 
