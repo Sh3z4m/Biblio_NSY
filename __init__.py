@@ -18,7 +18,7 @@ def all_books():
     return render_template('display_all.html', data=data)
 
 # Emprunter
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST'])
 def emprunt():
     # Récupération de l'ISBN envoyé par le formulaire
     isbn = request.form['emprunt']
