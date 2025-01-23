@@ -20,6 +20,7 @@
             <th>Année</th>
             <th>Genre</th>
             <th>ISBN</th>
+            <th>Exemplaires disponibles</th>
             <th>Emprunter</th>
         </tr>
         {% for row in data %}
@@ -30,6 +31,7 @@
             <td>{{ row[3] }}</td>
             <td>{{ row[4] }}</td>
             <td>{{ row[5] }}</td>
+            <td>{{ row[6] }}</td>
             <td><form action="/" method="post">
     <button type="submit" name="emprunt" value="{{ row[5] }}" class="btn-link">Emprunter</button>
 </form>
