@@ -18,11 +18,6 @@ def all_books():
     return render_template('display_all.html', data=data)
 
 # Emprunter
-from flask import Flask, request, render_template
-import sqlite3
-
-app = Flask(__name__)
-
 @app.route('/emprunt', methods=['POST'])
 def emprunt():
     try:
