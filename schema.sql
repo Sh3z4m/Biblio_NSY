@@ -6,7 +6,7 @@ CREATE TABLE Livres (
     annee_publication YEAR,
     genre VARCHAR(100),
     isbn VARCHAR(20) UNIQUE,
-    nbre_exemplaires VARCHAR(2) NOT NULL,
+    nbre_exemplaires VARCHAR(2) NOT NULL
 );
 
 -- Table pour les utilisateurs
