@@ -50,23 +50,29 @@ def emprunt():
     # Retourne le template avec le message
     return render_template('display_all.html', message=message)
 
-# Suppression des livres
-# Emprunter
 @app.route('/suppression', methods=['POST'])
 def suppressionlivre():
     try:
         # Récupération de l'ISBN depuis le formulaire
         isbn = request.form.get('suppression', None)
         if not isbn:
-            return render_template('result.html', message="ISBN non fourni dans le formulaire.")      
+            return render_template('result.html', message="<p style='color:red'>ISBN non fourni dans le formulaire.</p>")      
+        
         # Connexion à la base de données
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
-        # Vérification si le livre existe
+
+        # Suppression du livre dans la base
         cursor.execute('DELETE FROM livres WHERE isbn = ?', (isbn,))
-        conn.close()
+        conn.commit()  # Sauvegarde des changements
         message = f"<p style='color:green'>Livre avec ISBN {isbn} <b>supprimé</b> avec succès.</p>"
+    except Exception as e:
+        # Gestion des erreurs
+        message = f"<p style='color:red'>Une erreur est survenue : {str(e)}</p>"
     finally:
+        # Assurez-vous que la connexion est toujours fermée
+        conn.close()
+
     # Retourne le template avec le message
     return render_template('display_all.html', message=message)
 
