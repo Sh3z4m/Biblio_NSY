@@ -44,7 +44,7 @@ def emprunt():
     conn.close()
 
     # Retourne un template ou un message de confirmation
-    return render_template('result.html', message=message)
+    return render_template('display_all.html', message=message)
 
 # Afficher tous les livres
 @app.route('/enregistrer/')
