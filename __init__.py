@@ -37,13 +37,13 @@ def emprunt():
                 # Mise à jour du stock
                 cursor.execute('UPDATE livres SET nbre_exemplaires = nbre_exemplaires - 1 WHERE isbn = ?', (isbn,))
                 conn.commit()
-                message = f"Livre avec ISBN {isbn} emprunté avec succès."
+                message = f"<p style='color:green'>Livre avec ISBN {isbn} emprunté avec succès.</p>"
             else:
-                message = f"Aucun exemplaire disponible pour l'ISBN {isbn}."
+                message = f"<p style='color:orange'>Aucun exemplaire disponible pour l'ISBN {isbn}.</p>"
         else:
-            message = f"Aucun livre trouvé avec l'ISBN {isbn}."
+            message = f"<p style='color:orange'>Aucun livre trouvé avec l'ISBN {isbn}.</p>"
     except Exception as e:
-        message = f"Une erreur est survenue : {str(e)}"
+        message = f"<p style='color:red'>Une erreur est survenue : {str(e)}</p>"
     finally:
         conn.close()
 
