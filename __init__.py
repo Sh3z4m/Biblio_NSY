@@ -66,7 +66,7 @@ def suppressionlivre():
         cursor.execute('DELETE FROM livres WHERE isbn = ?', (isbn,))
         conn.close()
         message = f"<p style='color:green'>Livre avec ISBN {isbn} <b>supprimé</b> avec succès.</p>"
-
+    finally:
     # Retourne le template avec le message
     return render_template('display_all.html', message=message)
 
