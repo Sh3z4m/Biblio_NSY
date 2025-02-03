@@ -17,7 +17,7 @@ CREATE TABLE Utilisateurs (
     email VARCHAR(255) UNIQUE NOT NULL,
     date_inscription DATE DEFAULT CURRENT_DATE,
     mot_de_passe VARCHAR(255),
-    role VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL
 );
 
 
