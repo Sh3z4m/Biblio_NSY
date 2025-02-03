@@ -33,7 +33,7 @@ def auth_login():
             return redirect(url_for('index'))
         else:
             flash("Identifiants incorrects.", "danger")
-    return render_template('dashboard.html')
+    return render_template('login.html')
 
 # @app.route('/dashboard')
 # def dashboard():
