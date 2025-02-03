@@ -14,36 +14,26 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row  # Permet d'accéder aux colonnes par nom
     return conn
 
+# Routes pour l'authentification
 @app.route('/login', methods=['GET', 'POST'])
-def login():
+def auth_login():
     if request.method == 'POST':
         email = request.form['email']
-        password = request.form['password']
-        
-        # Connexion à la base de données
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        
-        # Recherche de l'utilisateur par email
-        cursor.execute("SELECT * FROM Utilisateurs WHERE email = ?", (email,))
-        utilisateur = cursor.fetchone()
-        conn.close()
-        
+        mot_de_passe = request.form['mot_de_passe']
+        connection = get_db_connection()
+        cur = connection.cursor()
+        cur.execute("SELECT * FROM Utilisateurs WHERE email = ? AND mot_de_passe = ?", (email, mot_de_passe))
+        utilisateur = cur.fetchone()
+        connection.close()
         if utilisateur:
-            # Vérification du mot de passe
-            if check_password_hash(utilisateur['mot_de_passe'], password):
-                # Création de la session
-                session['user_id'] = utilisateur['id_utilisateur']
-                session['user_email'] = utilisateur['email']
-                return redirect(url_for('dashboard'))  # Page d'accueil ou tableau de bord
-            else:
-                message = "Mot de passe incorrect."
+            session['user_id'] = utilisateur['id_utilisateur']
+            session['nom'] = utilisateur['nom']
+            session['role'] = utilisateur['role']
+            flash("Connexion réussie.", "success")
+            return redirect(url_for('index'))
         else:
-            message = "Utilisateur non trouvé."
-
-        return render_template('login.html', message=message)
-    
-    return render_template('login.html')
+            flash("Identifiants incorrects.", "danger")
+    return render_template('dashboard.html')
 
 # @app.route('/dashboard')
 # def dashboard():
