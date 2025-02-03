@@ -38,7 +38,7 @@ def auth_login():
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
-        return redirect(url_for('login'))  # Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+        return redirect(url_for('/'))  # Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
 
     # Connexion à la base de données pour récupérer des informations utilisateur
     conn = get_db_connection()
