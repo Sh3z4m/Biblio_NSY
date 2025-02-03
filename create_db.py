@@ -16,12 +16,12 @@ cur.execute("INSERT INTO Livres (titre, auteur, annee_publication, genre, isbn, 
             ('Les Misérables', 'Victor Hugo', 1862, 'Classique', '978-0-14-044430-8', '7'))
 
 # Données pour la table Utilisateurs
-cur.execute("INSERT INTO Utilisateurs (nom, prenom, email, date_inscription) VALUES (?, ?, ?, ?)",
-            ('Dupont', 'Emilie', 'emilie.dupont@example.com', '2023-01-15'))
-cur.execute("INSERT INTO Utilisateurs (nom, prenom, email, date_inscription) VALUES (?, ?, ?, ?)",
-            ('Martin', 'Jean', 'jean.martin@example.com', '2023-02-10'))
-cur.execute("INSERT INTO Utilisateurs (nom, prenom, email, date_inscription) VALUES (?, ?, ?, ?)",
-            ('Durand', 'Sophie', 'sophie.durand@example.com', '2023-03-20'))
+cur.execute("INSERT INTO Utilisateurs (nom, prenom, email, date_inscription, mot_de_passe) VALUES (?, ?, ?, ?, ?)",
+            ('Dupont', 'Emilie', 'emilie.dupont@example.com', '2023-01-15', 'motdepasse'))
+cur.execute("INSERT INTO Utilisateurs (nom, prenom, email, date_inscription, mot_de_passe) VALUES (?, ?, ?, ?, ?)",
+            ('Martin', 'Jean', 'jean.martin@example.com', '2023-02-10', 'motdepasse'))
+cur.execute("INSERT INTO Utilisateurs (nom, prenom, email, date_inscription, mot_de_passe) VALUES (?, ?, ?, ?, ?)",
+            ('Durand', 'Sophie', 'sophie.durand@example.com', '2023-03-20', 'motdepasse'))
 
 
 # Données pour la table Emprunts
