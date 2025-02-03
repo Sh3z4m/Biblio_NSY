@@ -1,0 +1,38 @@
+{% block title %}Gestion des Emprunts{% endblock %}
+{% block content %}
+<h2>Emprunts</h2>
+<table border="1" cellpadding="5" style="width: 100%;">
+    <tr>
+        <th>Utilisateur</th>
+        <th>Livre</th>
+        <th>Date de retour prévue</th>
+        <th>Statut</th>
+        <th>Actions</th>
+    </tr>
+    {% for emprunt in emprunts %}
+    <tr>
+        <td>{{ emprunt['utilisateur'] }}</td>
+        <td>{{ emprunt['livre'] }}</td>
+        <td>{{ emprunt['date_retour_prevue'] }}</td>
+        <td>{{ emprunt['statut'] }}</td>
+        <td>
+            <a href="/emprunts/retourner/{{ emprunt['id'] }}">Retourner</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<form method="POST" action="/emprunts/ajouter">
+    <h3>Ajouter un Emprunt</h3>
+    <select name="utilisateur">
+        {% for utilisateur in utilisateurs %}
+        <option value="{{ utilisateur['id'] }}">{{ utilisateur['nom'] }}</option>
+        {% endfor %}
+    </select>
+    <select name="livre">
+        {% for livre in livres %}
+        <option value="{{ livre['id'] }}">{{ livre['titre'] }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Ajouter</button>
+</form>
+{% endblock %}
