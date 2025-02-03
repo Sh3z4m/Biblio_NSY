@@ -154,6 +154,47 @@ def enregistrer_post():
 def rechercher():
     return render_template('rechercher.html')
 
+# # Routes pour la gestion des emprunts
+# @app.route('/emprunts', methods=['GET', 'POST'])
+# @login_required
+# def emprunts():
+#     connection = get_db_connection()
+#     cur = connection.cursor()
+#     if request.method == 'POST':
+#         id_utilisateur = session['user_id']
+#         id_livre = request.form['livre']
+#         cur.execute("INSERT INTO emprunts (id_utilisateur, id_livre, date_retour_prevue) VALUES (?, ?, date('now', '+7 days'))",
+#                     (id_utilisateur, id_livre))
+#         cur.execute("UPDATE livres SET stock = stock - 1 WHERE id = ?", (id_livre,))
+#         connection.commit()
+#         flash("Emprunt ajouté avec succès.", "success")
+#     cur.execute("""
+#         SELECT e.id, u.nom AS utilisateur, l.titre AS livre, e.date_retour_prevue, e.statut
+#         FROM emprunts e
+#         JOIN utilisateurs u ON e.id_utilisateur = u.id
+#         JOIN livres l ON e.id_livre = l.id
+#     """)
+#     emprunts = cur.fetchall()
+#     cur.execute("SELECT * FROM utilisateurs")
+#     utilisateurs = cur.fetchall()
+#     cur.execute("SELECT * FROM livres WHERE stock > 0")
+#     livres = cur.fetchall()
+#     connection.close()
+#     return render_template('emprunts.html', emprunts=emprunts, utilisateurs=utilisateurs, livres=livres)
+
+
+# @app.route('/emprunts/retourner/<int:emprunt_id>')
+# @login_required
+# def retourner_emprunt(emprunt_id):
+#     connection = get_db_connection()
+#     cur = connection.cursor()
+#     cur.execute("UPDATE emprunts SET statut = 'Retourné', date_retour_effective = date('now') WHERE id = ?", (emprunt_id,))
+#     cur.execute("UPDATE livres SET stock = stock + 1 WHERE id = (SELECT id_livre FROM emprunts WHERE id = ?)", (emprunt_id,))
+#     connection.commit()
+#     connection.close()
+#     flash("Livre retourné avec succès.", "success")
+#     return redirect(url_for('emprunts'))
+
 # Tout avant cette ligne !
 if __name__ == "__main__":
   app.run(debug=True)
