@@ -29,25 +29,25 @@ def auth_login():
             session['user_id'] = utilisateur['id_utilisateur']
             session['nom'] = utilisateur['nom']
             session['role'] = utilisateur['role']
-            flash("Connexion réussie.", "success")
-            return redirect(url_for('index'))
+            # flask("Connexion réussie.", "success")
+            return redirect('/dashboard')
         else:
             flash("Identifiants incorrects.", "danger")
     return render_template('login.html')
 
-# @app.route('/dashboard')
-# def dashboard():
-#     if 'user_id' not in session:
-#         return redirect(url_for('login'))  # Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+@app.route('/dashboard')
+def dashboard():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))  # Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
 
-#     # Connexion à la base de données pour récupérer des informations utilisateur
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     cursor.execute('SELECT * FROM Utilisateurs WHERE id_utilisateur = ?', (session['user_id'],))
-#     utilisateur = cursor.fetchone()
-#     conn.close()
+    # Connexion à la base de données pour récupérer des informations utilisateur
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM Utilisateurs WHERE id_utilisateur = ?', (session['user_id'],))
+    utilisateur = cursor.fetchone()
+    conn.close()
 
-#     return render_template('dashboard.html', utilisateur=utilisateur)
+    return render_template('dashboard.html', utilisateur=utilisateur)
 
 @app.route('/logout')
 def logout():
